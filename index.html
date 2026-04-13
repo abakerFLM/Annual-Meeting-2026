@@ -33,44 +33,57 @@
             font-size: 0.95rem;
             opacity: 0.9;
         }
-        .note {
-            background: #e8f4fd;
-            border-left: 4px solid #2d6da8;
-            padding: 16px 20px;
-            font-size: 0.9rem;
-            color: #1a3a5c;
+        .progress-bar {
+            background: #e0e0e0;
+            height: 6px;
+            width: 100%;
         }
-        .note strong { display: block; margin-bottom: 4px; }
+        .progress-fill {
+            background: linear-gradient(90deg, #2d6da8, #4a9ede);
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
         form {
             background: white;
             border-radius: 0 0 12px 12px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.08);
             overflow: hidden;
         }
-        .form-body { padding: 24px 28px; }
+        .form-body { padding: 28px; }
+        .step { display: none; }
+        .step.active { display: block; }
+        .step-intro {
+            background: #e8f4fd;
+            border-left: 4px solid #2d6da8;
+            padding: 16px 20px;
+            font-size: 0.9rem;
+            color: #1a3a5c;
+            margin: -28px -28px 28px -28px;
+        }
+        .step-intro strong { display: block; margin-bottom: 4px; }
+        .step-counter {
+            font-size: 0.82rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .question-label {
+            display: block;
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            color: #1a3a5c;
+        }
         .rating-scale-legend {
             display: flex;
             justify-content: space-between;
             font-size: 0.78rem;
             color: #666;
-            padding: 12px 0 20px;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 24px;
+            margin-bottom: 12px;
         }
         .rating-scale-legend span { text-align: center; flex: 1; }
-        .question-group {
-            margin-bottom: 28px;
-            padding-bottom: 28px;
-            border-bottom: 1px solid #f0f0f0;
-        }
-        .question-group:last-of-type { border-bottom: none; }
-        .question-group label {
-            display: block;
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 12px;
-            color: #1a3a5c;
-        }
         .rating-row {
             display: flex;
             justify-content: space-between;
@@ -78,22 +91,19 @@
             background: #f8f9fa;
             border-radius: 8px;
             padding: 8px 12px;
-            margin-bottom: 12px;
+            margin-bottom: 20px;
         }
         .rating-row input[type="radio"] { display: none; }
-        .rating-row .option {
-            flex: 1;
-            text-align: center;
-        }
+        .rating-row .option { flex: 1; text-align: center; }
         .rating-row .option label {
             display: flex;
             flex-direction: column;
             align-items: center;
             cursor: pointer;
-            padding: 8px 4px;
+            padding: 12px 4px;
             border-radius: 6px;
             font-weight: 500;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: #888;
             transition: all 0.15s;
         }
@@ -114,7 +124,7 @@
             font-family: inherit;
             font-size: 0.9rem;
             resize: vertical;
-            min-height: 70px;
+            min-height: 80px;
             transition: border-color 0.2s;
         }
         textarea:focus {
@@ -123,30 +133,61 @@
             box-shadow: 0 0 0 3px rgba(45,109,168,0.12);
         }
         textarea::placeholder { color: #bbb; }
-        .open-question { margin-bottom: 24px; }
-        .open-question label {
+        .comment-label {
+            font-size: 0.88rem;
+            color: #777;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .open-question-label {
             display: block;
             font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 8px;
+            font-size: 1.15rem;
+            margin-bottom: 12px;
             color: #1a3a5c;
         }
-        .open-question textarea { min-height: 90px; }
-        .submit-btn {
-            display: block;
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #1a3a5c, #2d6da8);
-            color: white;
+        .open-question textarea { min-height: 120px; }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 28px;
+        }
+        .btn {
+            padding: 14px 32px;
             border: none;
             border-radius: 8px;
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: opacity 0.2s;
+            transition: all 0.2s;
         }
-        .submit-btn:hover { opacity: 0.92; }
-        .submit-btn:active { transform: scale(0.99); }
+        .btn-next {
+            background: linear-gradient(135deg, #1a3a5c, #2d6da8);
+            color: white;
+            margin-left: auto;
+        }
+        .btn-next:hover { opacity: 0.92; }
+        .btn-back {
+            background: none;
+            color: #2d6da8;
+            padding: 14px 16px;
+        }
+        .btn-back:hover { background: #f0f2f5; }
+        .btn-submit {
+            background: linear-gradient(135deg, #1a6b3a, #2da84e);
+            color: white;
+            margin-left: auto;
+        }
+        .btn-submit:hover { opacity: 0.92; }
+        .btn:active { transform: scale(0.98); }
+        .validation-msg {
+            color: #d32f2f;
+            font-size: 0.85rem;
+            margin-top: -12px;
+            margin-bottom: 12px;
+            display: none;
+        }
         .thank-you {
             display: none;
             text-align: center;
@@ -157,17 +198,16 @@
         }
         .thank-you h2 { color: #1a3a5c; margin-bottom: 8px; }
         .thank-you p { color: #666; }
-        .checkmark {
-            font-size: 3rem;
-            margin-bottom: 16px;
-        }
+        .checkmark { font-size: 3rem; margin-bottom: 16px; }
         @media (max-width: 480px) {
             .container { padding: 12px 8px 32px; }
             .header { padding: 24px 16px; }
             .header h1 { font-size: 1.25rem; }
             .form-body { padding: 20px 16px; }
+            .step-intro { margin: -20px -16px 20px -16px; }
             .rating-row { padding: 4px 4px; }
-            .rating-row .option label { padding: 8px 2px; font-size: 1rem; }
+            .rating-row .option label { padding: 10px 2px; font-size: 1.05rem; }
+            .btn { padding: 12px 24px; font-size: 0.95rem; }
         }
     </style>
 </head>
@@ -177,119 +217,233 @@
             <h1>Frontline Management</h1>
             <p>Annual Leadership Meeting &mdash; Evaluation Form</p>
         </div>
-        <form id="survey-form" action="https://formspree.io/f/mqewkwqo" method="POST">
-            <div class="note">
-                <strong>Our goal is to exceed your expectations and achieve a score of "5."</strong>
-                If we failed to earn this score in any category, we would greatly appreciate your feedback and suggestions.
-            </div>
-            <div class="form-body">
-                <div class="rating-scale-legend">
-                    <span>1<br>Poor</span>
-                    <span>2<br>Mediocre</span>
-                    <span>3<br>Average</span>
-                    <span>4<br>Good</span>
-                    <span>5<br>Excellent</span>
-                </div>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
 
-                <div class="question-group">
-                    <label>Overall Meeting Format and Structure</label>
+        <form id="survey-form" action="https://formspree.io/f/mqewkwqo" method="POST">
+
+            <!-- Step 0: Intro -->
+            <div class="step active" data-step="0">
+                <div class="form-body">
+                    <div class="step-intro" style="margin:0; border-radius:8px;">
+                        <strong>Our goal is to exceed your expectations and achieve a score of "5."</strong>
+                        If we failed to earn this score in any category, we would greatly appreciate your feedback and suggestions.
+                        <br><br>
+                        Please rate each topic using the following scale:<br>
+                        <strong style="margin-top:8px;">1: Poor &nbsp; 2: Mediocre &nbsp; 3: Average &nbsp; 4: Good &nbsp; 5: Excellent</strong>
+                    </div>
+                    <div class="nav-buttons">
+                        <span></span>
+                        <button type="button" class="btn btn-next" onclick="goTo(1)">Begin Evaluation</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1: Format -->
+            <div class="step" data-step="1">
+                <div class="form-body">
+                    <div class="step-counter">Question 1 of 9</div>
+                    <div class="question-label">Overall Meeting Format and Structure</div>
+                    <div class="rating-scale-legend">
+                        <span>1<br>Poor</span><span>2<br>Mediocre</span><span>3<br>Average</span><span>4<br>Good</span><span>5<br>Excellent</span>
+                    </div>
                     <div class="rating-row">
-                        <div class="option"><input type="radio" name="format" id="format1" value="1" required><label for="format1">1</label></div>
+                        <div class="option"><input type="radio" name="format" id="format1" value="1"><label for="format1">1</label></div>
                         <div class="option"><input type="radio" name="format" id="format2" value="2"><label for="format2">2</label></div>
                         <div class="option"><input type="radio" name="format" id="format3" value="3"><label for="format3">3</label></div>
                         <div class="option"><input type="radio" name="format" id="format4" value="4"><label for="format4">4</label></div>
                         <div class="option"><input type="radio" name="format" id="format5" value="5"><label for="format5">5</label></div>
                     </div>
-                    <textarea name="format_comments" placeholder="How could we earn a &quot;5&quot;?"></textarea>
+                    <div class="validation-msg" id="val-1">Please select a rating to continue.</div>
+                    <span class="comment-label">Comments (optional) &mdash; How could we earn a "5"?</span>
+                    <textarea name="format_comments" placeholder="Share your thoughts..."></textarea>
+                    <div class="nav-buttons">
+                        <button type="button" class="btn btn-back" onclick="goTo(0)">Back</button>
+                        <button type="button" class="btn btn-next" onclick="nextRating(1, 'format')">Next</button>
+                    </div>
                 </div>
+            </div>
 
-                <div class="question-group">
-                    <label>Presentation(s)</label>
+            <!-- Step 2: Presentations -->
+            <div class="step" data-step="2">
+                <div class="form-body">
+                    <div class="step-counter">Question 2 of 9</div>
+                    <div class="question-label">Presentation(s)</div>
+                    <div class="rating-scale-legend">
+                        <span>1<br>Poor</span><span>2<br>Mediocre</span><span>3<br>Average</span><span>4<br>Good</span><span>5<br>Excellent</span>
+                    </div>
                     <div class="rating-row">
-                        <div class="option"><input type="radio" name="presentations" id="pres1" value="1" required><label for="pres1">1</label></div>
+                        <div class="option"><input type="radio" name="presentations" id="pres1" value="1"><label for="pres1">1</label></div>
                         <div class="option"><input type="radio" name="presentations" id="pres2" value="2"><label for="pres2">2</label></div>
                         <div class="option"><input type="radio" name="presentations" id="pres3" value="3"><label for="pres3">3</label></div>
                         <div class="option"><input type="radio" name="presentations" id="pres4" value="4"><label for="pres4">4</label></div>
                         <div class="option"><input type="radio" name="presentations" id="pres5" value="5"><label for="pres5">5</label></div>
                     </div>
-                    <textarea name="presentations_comments" placeholder="How could we earn a &quot;5&quot;?"></textarea>
+                    <div class="validation-msg" id="val-2">Please select a rating to continue.</div>
+                    <span class="comment-label">Comments (optional) &mdash; How could we earn a "5"?</span>
+                    <textarea name="presentations_comments" placeholder="Share your thoughts..."></textarea>
+                    <div class="nav-buttons">
+                        <button type="button" class="btn btn-back" onclick="goTo(1)">Back</button>
+                        <button type="button" class="btn btn-next" onclick="nextRating(2, 'presentations')">Next</button>
+                    </div>
                 </div>
+            </div>
 
-                <div class="question-group">
-                    <label>Speaker(s)</label>
+            <!-- Step 3: Speakers -->
+            <div class="step" data-step="3">
+                <div class="form-body">
+                    <div class="step-counter">Question 3 of 9</div>
+                    <div class="question-label">Speaker(s)</div>
+                    <div class="rating-scale-legend">
+                        <span>1<br>Poor</span><span>2<br>Mediocre</span><span>3<br>Average</span><span>4<br>Good</span><span>5<br>Excellent</span>
+                    </div>
                     <div class="rating-row">
-                        <div class="option"><input type="radio" name="speakers" id="speak1" value="1" required><label for="speak1">1</label></div>
+                        <div class="option"><input type="radio" name="speakers" id="speak1" value="1"><label for="speak1">1</label></div>
                         <div class="option"><input type="radio" name="speakers" id="speak2" value="2"><label for="speak2">2</label></div>
                         <div class="option"><input type="radio" name="speakers" id="speak3" value="3"><label for="speak3">3</label></div>
                         <div class="option"><input type="radio" name="speakers" id="speak4" value="4"><label for="speak4">4</label></div>
                         <div class="option"><input type="radio" name="speakers" id="speak5" value="5"><label for="speak5">5</label></div>
                     </div>
-                    <textarea name="speakers_comments" placeholder="How could we earn a &quot;5&quot;?"></textarea>
+                    <div class="validation-msg" id="val-3">Please select a rating to continue.</div>
+                    <span class="comment-label">Comments (optional) &mdash; How could we earn a "5"?</span>
+                    <textarea name="speakers_comments" placeholder="Share your thoughts..."></textarea>
+                    <div class="nav-buttons">
+                        <button type="button" class="btn btn-back" onclick="goTo(2)">Back</button>
+                        <button type="button" class="btn btn-next" onclick="nextRating(3, 'speakers')">Next</button>
+                    </div>
                 </div>
+            </div>
 
-                <div class="question-group">
-                    <label>Helpfulness of Information</label>
+            <!-- Step 4: Helpfulness -->
+            <div class="step" data-step="4">
+                <div class="form-body">
+                    <div class="step-counter">Question 4 of 9</div>
+                    <div class="question-label">Helpfulness of Information</div>
+                    <div class="rating-scale-legend">
+                        <span>1<br>Poor</span><span>2<br>Mediocre</span><span>3<br>Average</span><span>4<br>Good</span><span>5<br>Excellent</span>
+                    </div>
                     <div class="rating-row">
-                        <div class="option"><input type="radio" name="helpfulness" id="help1" value="1" required><label for="help1">1</label></div>
+                        <div class="option"><input type="radio" name="helpfulness" id="help1" value="1"><label for="help1">1</label></div>
                         <div class="option"><input type="radio" name="helpfulness" id="help2" value="2"><label for="help2">2</label></div>
                         <div class="option"><input type="radio" name="helpfulness" id="help3" value="3"><label for="help3">3</label></div>
                         <div class="option"><input type="radio" name="helpfulness" id="help4" value="4"><label for="help4">4</label></div>
                         <div class="option"><input type="radio" name="helpfulness" id="help5" value="5"><label for="help5">5</label></div>
                     </div>
-                    <textarea name="helpfulness_comments" placeholder="How could we earn a &quot;5&quot;?"></textarea>
+                    <div class="validation-msg" id="val-4">Please select a rating to continue.</div>
+                    <span class="comment-label">Comments (optional) &mdash; How could we earn a "5"?</span>
+                    <textarea name="helpfulness_comments" placeholder="Share your thoughts..."></textarea>
+                    <div class="nav-buttons">
+                        <button type="button" class="btn btn-back" onclick="goTo(3)">Back</button>
+                        <button type="button" class="btn btn-next" onclick="nextRating(4, 'helpfulness')">Next</button>
+                    </div>
                 </div>
+            </div>
 
-                <div class="question-group">
-                    <label>Handouts / Materials</label>
+            <!-- Step 5: Handouts -->
+            <div class="step" data-step="5">
+                <div class="form-body">
+                    <div class="step-counter">Question 5 of 9</div>
+                    <div class="question-label">Handouts / Materials</div>
+                    <div class="rating-scale-legend">
+                        <span>1<br>Poor</span><span>2<br>Mediocre</span><span>3<br>Average</span><span>4<br>Good</span><span>5<br>Excellent</span>
+                    </div>
                     <div class="rating-row">
-                        <div class="option"><input type="radio" name="handouts" id="hand1" value="1" required><label for="hand1">1</label></div>
+                        <div class="option"><input type="radio" name="handouts" id="hand1" value="1"><label for="hand1">1</label></div>
                         <div class="option"><input type="radio" name="handouts" id="hand2" value="2"><label for="hand2">2</label></div>
                         <div class="option"><input type="radio" name="handouts" id="hand3" value="3"><label for="hand3">3</label></div>
                         <div class="option"><input type="radio" name="handouts" id="hand4" value="4"><label for="hand4">4</label></div>
                         <div class="option"><input type="radio" name="handouts" id="hand5" value="5"><label for="hand5">5</label></div>
                     </div>
-                    <textarea name="handouts_comments" placeholder="How could we earn a &quot;5&quot;?"></textarea>
+                    <div class="validation-msg" id="val-5">Please select a rating to continue.</div>
+                    <span class="comment-label">Comments (optional) &mdash; How could we earn a "5"?</span>
+                    <textarea name="handouts_comments" placeholder="Share your thoughts..."></textarea>
+                    <div class="nav-buttons">
+                        <button type="button" class="btn btn-back" onclick="goTo(4)">Back</button>
+                        <button type="button" class="btn btn-next" onclick="nextRating(5, 'handouts')">Next</button>
+                    </div>
                 </div>
+            </div>
 
-                <div class="question-group">
-                    <label>Room Size / Set Up</label>
+            <!-- Step 6: Room -->
+            <div class="step" data-step="6">
+                <div class="form-body">
+                    <div class="step-counter">Question 6 of 9</div>
+                    <div class="question-label">Room Size / Set Up</div>
+                    <div class="rating-scale-legend">
+                        <span>1<br>Poor</span><span>2<br>Mediocre</span><span>3<br>Average</span><span>4<br>Good</span><span>5<br>Excellent</span>
+                    </div>
                     <div class="rating-row">
-                        <div class="option"><input type="radio" name="room" id="room1" value="1" required><label for="room1">1</label></div>
+                        <div class="option"><input type="radio" name="room" id="room1" value="1"><label for="room1">1</label></div>
                         <div class="option"><input type="radio" name="room" id="room2" value="2"><label for="room2">2</label></div>
                         <div class="option"><input type="radio" name="room" id="room3" value="3"><label for="room3">3</label></div>
                         <div class="option"><input type="radio" name="room" id="room4" value="4"><label for="room4">4</label></div>
                         <div class="option"><input type="radio" name="room" id="room5" value="5"><label for="room5">5</label></div>
                     </div>
-                    <textarea name="room_comments" placeholder="How could we earn a &quot;5&quot;?"></textarea>
+                    <div class="validation-msg" id="val-6">Please select a rating to continue.</div>
+                    <span class="comment-label">Comments (optional) &mdash; How could we earn a "5"?</span>
+                    <textarea name="room_comments" placeholder="Share your thoughts..."></textarea>
+                    <div class="nav-buttons">
+                        <button type="button" class="btn btn-back" onclick="goTo(5)">Back</button>
+                        <button type="button" class="btn btn-next" onclick="nextRating(6, 'room')">Next</button>
+                    </div>
                 </div>
+            </div>
 
-                <div class="question-group">
-                    <label>Refreshments and/or Meals</label>
+            <!-- Step 7: Refreshments -->
+            <div class="step" data-step="7">
+                <div class="form-body">
+                    <div class="step-counter">Question 7 of 9</div>
+                    <div class="question-label">Refreshments and/or Meals</div>
+                    <div class="rating-scale-legend">
+                        <span>1<br>Poor</span><span>2<br>Mediocre</span><span>3<br>Average</span><span>4<br>Good</span><span>5<br>Excellent</span>
+                    </div>
                     <div class="rating-row">
-                        <div class="option"><input type="radio" name="refreshments" id="ref1" value="1" required><label for="ref1">1</label></div>
+                        <div class="option"><input type="radio" name="refreshments" id="ref1" value="1"><label for="ref1">1</label></div>
                         <div class="option"><input type="radio" name="refreshments" id="ref2" value="2"><label for="ref2">2</label></div>
                         <div class="option"><input type="radio" name="refreshments" id="ref3" value="3"><label for="ref3">3</label></div>
                         <div class="option"><input type="radio" name="refreshments" id="ref4" value="4"><label for="ref4">4</label></div>
                         <div class="option"><input type="radio" name="refreshments" id="ref5" value="5"><label for="ref5">5</label></div>
                     </div>
-                    <textarea name="refreshments_comments" placeholder="How could we earn a &quot;5&quot;?"></textarea>
+                    <div class="validation-msg" id="val-7">Please select a rating to continue.</div>
+                    <span class="comment-label">Comments (optional) &mdash; How could we earn a "5"?</span>
+                    <textarea name="refreshments_comments" placeholder="Share your thoughts..."></textarea>
+                    <div class="nav-buttons">
+                        <button type="button" class="btn btn-back" onclick="goTo(6)">Back</button>
+                        <button type="button" class="btn btn-next" onclick="nextRating(7, 'refreshments')">Next</button>
+                    </div>
                 </div>
-
-                <div class="open-question">
-                    <label>The best part of this meeting was:</label>
-                    <textarea name="best_part" placeholder="Tell us what you enjoyed most..."></textarea>
-                </div>
-
-                <div class="open-question">
-                    <label>I have the following suggestions for future meetings:</label>
-                    <textarea name="suggestions" placeholder="Share your ideas for improvement..."></textarea>
-                </div>
-
-                <input type="hidden" name="_subject" value="Annual Leadership Meeting - Survey Response">
-                <input type="hidden" name="_next" value="">
-
-                <button type="submit" class="submit-btn">Submit Evaluation</button>
             </div>
+
+            <!-- Step 8: Best Part -->
+            <div class="step" data-step="8">
+                <div class="form-body">
+                    <div class="step-counter">Question 8 of 9</div>
+                    <div class="open-question">
+                        <div class="open-question-label">The best part of this meeting was:</div>
+                        <textarea name="best_part" placeholder="Tell us what you enjoyed most..."></textarea>
+                    </div>
+                    <div class="nav-buttons">
+                        <button type="button" class="btn btn-back" onclick="goTo(7)">Back</button>
+                        <button type="button" class="btn btn-next" onclick="goTo(9)">Next</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 9: Suggestions -->
+            <div class="step" data-step="9">
+                <div class="form-body">
+                    <div class="step-counter">Question 9 of 9</div>
+                    <div class="open-question">
+                        <div class="open-question-label">I have the following suggestions for future meetings:</div>
+                        <textarea name="suggestions" placeholder="Share your ideas for improvement..."></textarea>
+                    </div>
+                    <div class="nav-buttons">
+                        <button type="button" class="btn btn-back" onclick="goTo(8)">Back</button>
+                        <button type="submit" class="btn btn-submit">Submit Evaluation</button>
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden" name="_subject" value="Annual Leadership Meeting - Survey Response">
         </form>
 
         <div class="thank-you" id="thank-you">
@@ -300,6 +454,26 @@
     </div>
 
     <script>
+        const totalSteps = 10; // 0=intro, 1-7=ratings, 8-9=open
+
+        function goTo(step) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.querySelector(`[data-step="${step}"]`).classList.add('active');
+            document.getElementById('progress-fill').style.width = (step / (totalSteps - 1)) * 100 + '%';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function nextRating(currentStep, radioName) {
+            const selected = document.querySelector(`input[name="${radioName}"]:checked`);
+            const msg = document.getElementById(`val-${currentStep}`);
+            if (!selected) {
+                msg.style.display = 'block';
+                return;
+            }
+            msg.style.display = 'none';
+            goTo(currentStep + 1);
+        }
+
         document.getElementById('survey-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const form = this;
@@ -312,6 +486,7 @@
             }).then(response => {
                 if (response.ok) {
                     form.style.display = 'none';
+                    document.querySelector('.progress-bar').style.display = 'none';
                     document.getElementById('thank-you').style.display = 'block';
                 } else {
                     alert('There was a problem submitting your response. Please try again.');
