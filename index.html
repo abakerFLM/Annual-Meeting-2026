@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annual Leadership Meeting - Evaluation Form</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 20px 16px 40px;
+        }
+        .header {
+            background: linear-gradient(135deg, #1a3a5c, #2d6da8);
+            color: white;
+            padding: 32px 28px;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        .note {
+            background: #e8f4fd;
+            border-left: 4px solid #2d6da8;
+            padding: 16px 20px;
+            font-size: 0.9rem;
+            color: #1a3a5c;
+        }
+        .note strong { display: block; margin-bottom: 4px; }
+        form {
+            background: white;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        .form-body { padding: 24px 28px; }
+        .rating-scale-legend {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.78rem;
+            color: #666;
+            padding: 12px 0 20px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 24px;
+        }
+        .rating-scale-legend span { text-align: center; flex: 1; }
+        .question-group {
+            margin-bottom: 28px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .question-group:last-of-type { border-bottom: none; }
+        .question-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            color: #1a3a5c;
+        }
+        .rating-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin-bottom: 12px;
+        }
+        .rating-row input[type="radio"] { display: none; }
+        .rating-row .option {
+            flex: 1;
+            text-align: center;
+        }
+        .rating-row .option label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px 4px;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: #888;
+            transition: all 0.15s;
+        }
+        .rating-row .option label:hover {
+            background: #e8f4fd;
+            color: #2d6da8;
+        }
+        .rating-row input[type="radio"]:checked + label {
+            background: #2d6da8;
+            color: white;
+            font-weight: 700;
+        }
+        textarea {
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            resize: vertical;
+            min-height: 70px;
+            transition: border-color 0.2s;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #2d6da8;
+            box-shadow: 0 0 0 3px rgba(45,109,168,0.12);
+        }
+        textarea::placeholder { color: #bbb; }
+        .open-question { margin-bottom: 24px; }
+        .open-question label {
+            display: block;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #1a3a5c;
+        }
+        .open-question textarea { min-height: 90px; }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #1a3a5c, #2d6da8);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .submit-btn:hover { opacity: 0.92; }
+        .submit-btn:active { transform: scale(0.99); }
+        .thank-you {
+            display: none;
+            text-align: center;
+            padding: 60px 28px;
+            background: white;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        .thank-you h2 { color: #1a3a5c; margin-bottom: 8px; }
+        .thank-you p { color: #666; }
+        .checkmark {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+        @media (max-width: 480px) {
+            .container { padding: 12px 8px 32px; }
+            .header { padding: 24px 16px; }
+            .header h1 { font-size: 1.25rem; }
+            .form-body { padding: 20px 16px; }
+            .rating-row { padding: 4px 4px; }
+            .rating-row .option label { padding: 8px 2px; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Frontline Management</h1>
+            <p>Annual Leadership Meeting &mdash; Evaluation Form</p>
+        </div>
+        <form id="survey-form" action="https://formspree.io/f/mqewkwqo" method="POST">
+            <div class="note">
+                <strong>Our goal is to exceed your expectations and achieve a score of "5."</strong>
+                If we failed to earn this score in any category, we would greatly appreciate your feedback and suggestions.
+            </div>
+            <div class="form-body">
+                <div class="rating-scale-legend">
+                    <span>1<br>Poor</span>
+                    <span>2<br>Mediocre</span>
+                    <span>3<br>Average</span>
+                    <span>4<br>Good</span>
+                    <span>5<br>Excellent</span>
+                </div>
+
+                <div class="question-group">
+                    <label>Overall Meeting Format and Structure</label>
+                    <div class="rating-row">
+                        <div class="option"><input type="radio" name="format" id="format1" value="1" required><label for="format1">1</label></div>
+                        <div class="option"><input type="radio" name="format" id="format2" value="2"><label for="format2">2</label></div>
+                        <div class="option"><input type="radio" name="format" id="format3" value="3"><label for="format3">3</label></div>
+                        <div class="option"><input type="radio" name="format" id="format4" value="4"><label for="format4">4</label></div>
+                        <div class="option"><input type="radio" name="format" id="format5" value="5"><label for="format5">5</label></div>
+                    </div>
+                    <textarea name="format_comments" placeholder="How could we earn a &quot;5&quot;?"></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label>Presentation(s)</label>
+                    <div class="rating-row">
+                        <div class="option"><input type="radio" name="presentations" id="pres1" value="1" required><label for="pres1">1</label></div>
+                        <div class="option"><input type="radio" name="presentations" id="pres2" value="2"><label for="pres2">2</label></div>
+                        <div class="option"><input type="radio" name="presentations" id="pres3" value="3"><label for="pres3">3</label></div>
+                        <div class="option"><input type="radio" name="presentations" id="pres4" value="4"><label for="pres4">4</label></div>
+                        <div class="option"><input type="radio" name="presentations" id="pres5" value="5"><label for="pres5">5</label></div>
+                    </div>
+                    <textarea name="presentations_comments" placeholder="How could we earn a &quot;5&quot;?"></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label>Speaker(s)</label>
+                    <div class="rating-row">
+                        <div class="option"><input type="radio" name="speakers" id="speak1" value="1" required><label for="speak1">1</label></div>
+                        <div class="option"><input type="radio" name="speakers" id="speak2" value="2"><label for="speak2">2</label></div>
+                        <div class="option"><input type="radio" name="speakers" id="speak3" value="3"><label for="speak3">3</label></div>
+                        <div class="option"><input type="radio" name="speakers" id="speak4" value="4"><label for="speak4">4</label></div>
+                        <div class="option"><input type="radio" name="speakers" id="speak5" value="5"><label for="speak5">5</label></div>
+                    </div>
+                    <textarea name="speakers_comments" placeholder="How could we earn a &quot;5&quot;?"></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label>Helpfulness of Information</label>
+                    <div class="rating-row">
+                        <div class="option"><input type="radio" name="helpfulness" id="help1" value="1" required><label for="help1">1</label></div>
+                        <div class="option"><input type="radio" name="helpfulness" id="help2" value="2"><label for="help2">2</label></div>
+                        <div class="option"><input type="radio" name="helpfulness" id="help3" value="3"><label for="help3">3</label></div>
+                        <div class="option"><input type="radio" name="helpfulness" id="help4" value="4"><label for="help4">4</label></div>
+                        <div class="option"><input type="radio" name="helpfulness" id="help5" value="5"><label for="help5">5</label></div>
+                    </div>
+                    <textarea name="helpfulness_comments" placeholder="How could we earn a &quot;5&quot;?"></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label>Handouts / Materials</label>
+                    <div class="rating-row">
+                        <div class="option"><input type="radio" name="handouts" id="hand1" value="1" required><label for="hand1">1</label></div>
+                        <div class="option"><input type="radio" name="handouts" id="hand2" value="2"><label for="hand2">2</label></div>
+                        <div class="option"><input type="radio" name="handouts" id="hand3" value="3"><label for="hand3">3</label></div>
+                        <div class="option"><input type="radio" name="handouts" id="hand4" value="4"><label for="hand4">4</label></div>
+                        <div class="option"><input type="radio" name="handouts" id="hand5" value="5"><label for="hand5">5</label></div>
+                    </div>
+                    <textarea name="handouts_comments" placeholder="How could we earn a &quot;5&quot;?"></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label>Room Size / Set Up</label>
+                    <div class="rating-row">
+                        <div class="option"><input type="radio" name="room" id="room1" value="1" required><label for="room1">1</label></div>
+                        <div class="option"><input type="radio" name="room" id="room2" value="2"><label for="room2">2</label></div>
+                        <div class="option"><input type="radio" name="room" id="room3" value="3"><label for="room3">3</label></div>
+                        <div class="option"><input type="radio" name="room" id="room4" value="4"><label for="room4">4</label></div>
+                        <div class="option"><input type="radio" name="room" id="room5" value="5"><label for="room5">5</label></div>
+                    </div>
+                    <textarea name="room_comments" placeholder="How could we earn a &quot;5&quot;?"></textarea>
+                </div>
+
+                <div class="question-group">
+                    <label>Refreshments and/or Meals</label>
+                    <div class="rating-row">
+                        <div class="option"><input type="radio" name="refreshments" id="ref1" value="1" required><label for="ref1">1</label></div>
+                        <div class="option"><input type="radio" name="refreshments" id="ref2" value="2"><label for="ref2">2</label></div>
+                        <div class="option"><input type="radio" name="refreshments" id="ref3" value="3"><label for="ref3">3</label></div>
+                        <div class="option"><input type="radio" name="refreshments" id="ref4" value="4"><label for="ref4">4</label></div>
+                        <div class="option"><input type="radio" name="refreshments" id="ref5" value="5"><label for="ref5">5</label></div>
+                    </div>
+                    <textarea name="refreshments_comments" placeholder="How could we earn a &quot;5&quot;?"></textarea>
+                </div>
+
+                <div class="open-question">
+                    <label>The best part of this meeting was:</label>
+                    <textarea name="best_part" placeholder="Tell us what you enjoyed most..."></textarea>
+                </div>
+
+                <div class="open-question">
+                    <label>I have the following suggestions for future meetings:</label>
+                    <textarea name="suggestions" placeholder="Share your ideas for improvement..."></textarea>
+                </div>
+
+                <input type="hidden" name="_subject" value="Annual Leadership Meeting - Survey Response">
+                <input type="hidden" name="_next" value="">
+
+                <button type="submit" class="submit-btn">Submit Evaluation</button>
+            </div>
+        </form>
+
+        <div class="thank-you" id="thank-you">
+            <div class="checkmark">&#10003;</div>
+            <h2>Thank You!</h2>
+            <p>Your feedback has been submitted successfully.<br>We appreciate your time and input.</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('survey-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const form = this;
+            const data = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    form.style.display = 'none';
+                    document.getElementById('thank-you').style.display = 'block';
+                } else {
+                    alert('There was a problem submitting your response. Please try again.');
+                }
+            }).catch(() => {
+                alert('There was a problem submitting your response. Please try again.');
+            });
+        });
+    </script>
+</body>
+</html>
