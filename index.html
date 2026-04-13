@@ -453,9 +453,15 @@
             goTo(currentStep + 1);
         }
 
+        let submitted = false;
         document.getElementById('survey-form').addEventListener('submit', function(e) {
             e.preventDefault();
+            if (submitted) return;
+            submitted = true;
             const form = this;
+            const submitBtn = form.querySelector('.btn-submit');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
             const data = new FormData(form);
 
             fetch(form.action, {
@@ -467,6 +473,9 @@
                 document.querySelector('.progress-bar').style.display = 'none';
                 document.getElementById('thank-you').style.display = 'block';
             }).catch(() => {
+                submitted = false;
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Evaluation';
                 alert('There was a problem submitting your response. Please try again.');
             });
         });
