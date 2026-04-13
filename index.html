@@ -219,7 +219,7 @@
         </div>
         <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
 
-        <form id="survey-form" action="https://formspree.io/f/mqewkwqo" method="POST">
+        <form id="survey-form" action="https://script.google.com/macros/s/AKfycbwTPozaURz7adugQKJbpemvVFPlbPznkbSq-FSJFtRxwSAgQmtoU4fqkaC55MAY33NM/exec" method="POST">
 
             <!-- Step 0: Intro -->
             <div class="step active" data-step="0">
@@ -243,9 +243,6 @@
                 <div class="form-body">
                     <div class="step-counter">Question 1 of 9</div>
                     <div class="question-label">Overall Meeting Format and Structure</div>
-                    <div class="rating-scale-legend">
-                        <span>1<br>Poor</span><span>2<br>Mediocre</span><span>3<br>Average</span><span>4<br>Good</span><span>5<br>Excellent</span>
-                    </div>
                     <div class="rating-row">
                         <div class="option"><input type="radio" name="format" id="format1" value="1"><label for="format1">1</label></div>
                         <div class="option"><input type="radio" name="format" id="format2" value="2"><label for="format2">2</label></div>
@@ -268,9 +265,6 @@
                 <div class="form-body">
                     <div class="step-counter">Question 2 of 9</div>
                     <div class="question-label">Presentation(s)</div>
-                    <div class="rating-scale-legend">
-                        <span>1<br>Poor</span><span>2<br>Mediocre</span><span>3<br>Average</span><span>4<br>Good</span><span>5<br>Excellent</span>
-                    </div>
                     <div class="rating-row">
                         <div class="option"><input type="radio" name="presentations" id="pres1" value="1"><label for="pres1">1</label></div>
                         <div class="option"><input type="radio" name="presentations" id="pres2" value="2"><label for="pres2">2</label></div>
@@ -293,9 +287,6 @@
                 <div class="form-body">
                     <div class="step-counter">Question 3 of 9</div>
                     <div class="question-label">Speaker(s)</div>
-                    <div class="rating-scale-legend">
-                        <span>1<br>Poor</span><span>2<br>Mediocre</span><span>3<br>Average</span><span>4<br>Good</span><span>5<br>Excellent</span>
-                    </div>
                     <div class="rating-row">
                         <div class="option"><input type="radio" name="speakers" id="speak1" value="1"><label for="speak1">1</label></div>
                         <div class="option"><input type="radio" name="speakers" id="speak2" value="2"><label for="speak2">2</label></div>
@@ -318,9 +309,6 @@
                 <div class="form-body">
                     <div class="step-counter">Question 4 of 9</div>
                     <div class="question-label">Helpfulness of Information</div>
-                    <div class="rating-scale-legend">
-                        <span>1<br>Poor</span><span>2<br>Mediocre</span><span>3<br>Average</span><span>4<br>Good</span><span>5<br>Excellent</span>
-                    </div>
                     <div class="rating-row">
                         <div class="option"><input type="radio" name="helpfulness" id="help1" value="1"><label for="help1">1</label></div>
                         <div class="option"><input type="radio" name="helpfulness" id="help2" value="2"><label for="help2">2</label></div>
@@ -343,9 +331,6 @@
                 <div class="form-body">
                     <div class="step-counter">Question 5 of 9</div>
                     <div class="question-label">Handouts / Materials</div>
-                    <div class="rating-scale-legend">
-                        <span>1<br>Poor</span><span>2<br>Mediocre</span><span>3<br>Average</span><span>4<br>Good</span><span>5<br>Excellent</span>
-                    </div>
                     <div class="rating-row">
                         <div class="option"><input type="radio" name="handouts" id="hand1" value="1"><label for="hand1">1</label></div>
                         <div class="option"><input type="radio" name="handouts" id="hand2" value="2"><label for="hand2">2</label></div>
@@ -368,9 +353,6 @@
                 <div class="form-body">
                     <div class="step-counter">Question 6 of 9</div>
                     <div class="question-label">Room Size / Set Up</div>
-                    <div class="rating-scale-legend">
-                        <span>1<br>Poor</span><span>2<br>Mediocre</span><span>3<br>Average</span><span>4<br>Good</span><span>5<br>Excellent</span>
-                    </div>
                     <div class="rating-row">
                         <div class="option"><input type="radio" name="room" id="room1" value="1"><label for="room1">1</label></div>
                         <div class="option"><input type="radio" name="room" id="room2" value="2"><label for="room2">2</label></div>
@@ -393,9 +375,6 @@
                 <div class="form-body">
                     <div class="step-counter">Question 7 of 9</div>
                     <div class="question-label">Refreshments and/or Meals</div>
-                    <div class="rating-scale-legend">
-                        <span>1<br>Poor</span><span>2<br>Mediocre</span><span>3<br>Average</span><span>4<br>Good</span><span>5<br>Excellent</span>
-                    </div>
                     <div class="rating-row">
                         <div class="option"><input type="radio" name="refreshments" id="ref1" value="1"><label for="ref1">1</label></div>
                         <div class="option"><input type="radio" name="refreshments" id="ref2" value="2"><label for="ref2">2</label></div>
@@ -443,7 +422,7 @@
                 </div>
             </div>
 
-            <input type="hidden" name="_subject" value="Annual Leadership Meeting - Survey Response">
+
         </form>
 
         <div class="thank-you" id="thank-you">
@@ -482,15 +461,11 @@
             fetch(form.action, {
                 method: 'POST',
                 body: data,
-                headers: { 'Accept': 'application/json' }
-            }).then(response => {
-                if (response.ok) {
-                    form.style.display = 'none';
-                    document.querySelector('.progress-bar').style.display = 'none';
-                    document.getElementById('thank-you').style.display = 'block';
-                } else {
-                    alert('There was a problem submitting your response. Please try again.');
-                }
+                mode: 'no-cors'
+            }).then(() => {
+                form.style.display = 'none';
+                document.querySelector('.progress-bar').style.display = 'none';
+                document.getElementById('thank-you').style.display = 'block';
             }).catch(() => {
                 alert('There was a problem submitting your response. Please try again.');
             });
